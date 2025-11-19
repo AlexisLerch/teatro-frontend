@@ -67,6 +67,7 @@ const Header = () => {
               <span 
                 key={item} 
                 className="cursor-pointer hover:text-gray-100 transition-colors"
+                onClick={() => navigate("/movies")}
               >
                 {item}
               </span>

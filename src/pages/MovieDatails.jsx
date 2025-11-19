@@ -117,7 +117,7 @@ const MovieDatails = () => {
         </div>
       </div>
       <div className="w-full max-w-4xl mt-10">
-        <TheaterTimings />
+        <TheaterTimings movieId={id} />
       </div>
     </div>
   );

@@ -6,10 +6,9 @@ export const getAllMovies = () => axiosWrapper.get("/movies");
 
 export const getMovieById = (id) => axiosWrapper.get(`/movies/${id}`);
 
-export const getShowsByMovieAndLocation = (movieId, state, date) => axiosWrapper.get(`/shows`, {
+export const getShowsByMovieAndLocation = (movieId, date) => axiosWrapper.get(`/shows`, {
     params: {
         movieId,
-        state,
         date
     }
 });
