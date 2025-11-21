@@ -1,17 +1,20 @@
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useMatch } from 'react-router-dom'
 import Header from './components/shared/Header'
 import Footer from './components/shared/Footer'
 import Home from './pages/Home'
 import Profile from './pages/Profile'
 import Movies from './pages/Movies'
 import MoviesDetails from './pages/MovieDatails'
+import SeatLayout from './pages/SeatLayout'
 
 function App() {
+
+  const isSeatLayoutPage = useMatch('/movie/:movieId/theater/:theaterId/show/:showId/seat-layout')
 
   return (
     <>
       <div className='flex flex-col min-h-screen '>
-        <Header />
+        {!isSeatLayoutPage && <Header />}
         <main className='flex-grow'>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -19,10 +22,10 @@ function App() {
             <Route path="/movies" element={<Movies />} />
             <Route path="/movies/:movieName/:id/ticket" element={<MoviesDetails />} />
             <Route path='/profile' element={<Profile />} />
-            <Route />
+            <Route path="/movie/:movieId/theater/:theaterId/show/:showId/seat-layout"element={<SeatLayout />} />
           </Routes>
         </main>
-        <Footer />
+        {!isSeatLayoutPage && <Footer />}
       </div>
     </>
   )

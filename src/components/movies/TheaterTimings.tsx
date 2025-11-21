@@ -2,12 +2,15 @@ import dayjs from "dayjs";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { getShowsByMovieAndLocation } from "../../apis";
 import React from "react";
+import { useNavigate } from "react-router-dom";
+
 
 interface TheaterTimingsProps {
   movieId: string;
 }
 
 const TheaterTimings = ({ movieId }: TheaterTimingsProps) => {
+  const navigate = useNavigate();
   const today = dayjs();
   const [selectedDate, setSelectedDate] = React.useState(today);
   const formattedDate = selectedDate.format("DD-MM-YYYY");
@@ -19,6 +22,8 @@ const TheaterTimings = ({ movieId }: TheaterTimingsProps) => {
     placeholderData: keepPreviousData,
     enabled: !!movieId,
   });
+
+  console.log(rawData)
 
   const normalizeShows = (raw: any) => {
     if (!raw) return [];
@@ -66,6 +71,9 @@ const TheaterTimings = ({ movieId }: TheaterTimingsProps) => {
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
       {shows.map((show: any) => (
         <div
+          onClick={() => navigate(
+            `/movie/${movieId}/theater/${show.theater}/show/${show._id}/seat-layout`
+          )}
           key={show._id}
           className="bg-gray-900 p-4 rounded-xl shadow-md flex flex-col justify-between hover:shadow-lg transition-all"
         >
@@ -80,7 +88,7 @@ const TheaterTimings = ({ movieId }: TheaterTimingsProps) => {
           </div>
 
           {/* HORARIOS */}
-          <div className="flex flex-wrap gap-2">
+          <div  className="flex flex-wrap gap-2">
             <button className="px-3 py-1 bg-gray-700 text-white rounded text-xs hover:bg-gray-600 transition">
               {show.startTime}
             </button>
